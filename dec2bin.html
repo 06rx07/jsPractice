@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Day 17 Exercise</title>
+</head>
+<body>        
+    <input id="dec-number" type="number" placeholder="Enter a on-negative integer in decimal">
+    <input id="bin-bit" type="number" placeholder="Enter how many digits after conversion">
+    <button id="trans-btn" onclick="convertToBinary()">To binary</button>
+    <p id="result">Result</p>
+    <script>
+        function convertToBinary() {
+            const decNumber = document.getElementById("dec-number").value;
+            const length = document.getElementById("bin-bit").value;
+            const result = dec2bin(decNumber, length);
+            document.getElementById("result").innerHTML = (result) ? result : "Invalid decimal input";
+        }
+        function dec2bin(decNumber, length) {
+            var validNumber = isValidDecimal(decNumber);
+            var binaryResult = [];
+            if(validNumber !== null){
+                while (validNumber > 0) {
+                    binaryResult.push(validNumber%2);
+                    validNumber = Math.floor(validNumber/2);
+                }
+            }
+            binaryResult = formatLength(binaryResult, length);
+            return binaryResult.reverse().join("");
+        }
+        function isValidDecimal(decNumber) {
+            const original = Number(decNumber);
+            return (!Number.isNaN(original) && Number.isInteger(original) && Math.sign(original) > -1) ?
+            original : null;
+        }
+        function formatLength(binary, length) {
+            var lengthValue = Number(length);
+            if(!Number.isNaN(lengthValue)){
+                if(binary.length > lengthValue) {
+                    console.error("fomatting length is less than resulting binary length");
+                } else {
+                    binary = binary.concat(Array(lengthValue - binary.length).fill(0));
+                }
+            }
+            return binary;
+        }
+    </script>
+</body>
+</html>
