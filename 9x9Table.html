@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>9x9 Table</title>
+</head>
+<body onload="createTable()">
+    <table id="9x9-table" style="width: 100%;">
+    </table>
+
+    <script>
+        function createTable() {
+            const table = document.getElementById("9x9-table");
+            for(let row = 1; row <= 9; row++){
+                let currentRow = document.createElement("tr");
+                for(let col = 1; col <= 9; col ++){
+                    let currentCol = document.createElement("td");
+                    let content = row.toString() + " x " + col.toString() + " = " + row*col;
+                    let textContent = document.createTextNode(content);
+                    currentCol.appendChild(textContent);
+                    currentRow.appendChild(currentCol);
+                }
+                table.appendChild(currentRow);
+            }
+        }
+    </script>
+</body>
+</html>
