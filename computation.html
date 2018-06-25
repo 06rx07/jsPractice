@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Day16 Exercise</title>
+</head>
+<body>        
+    <input id="first-number" type="number" value="0" placeholder="First Number">
+    <input id="second-number" type="number" value="0" placeholder="Second Number">
+    <button id="add-btn">+</button>
+    <button id="minus-btn">-</button>
+    <button id="times-btn">*</button>
+    <button id="divide-btn">/</button>
+    <p id="result">Result</p>
+    
+    <script>
+        function getNumbers(){
+            var firstNumber = Number(document.getElementById("first-number").value);
+            var secondNumber = Number(document.getElementById("second-number").value);
+            return (!Number.isNaN(firstNumber) && !Number.isNaN(secondNumber)) ?
+            { firstNumber: firstNumber, secondNumber: secondNumber } : null;
+        }
+        function doComputation(operator){
+            var currentNumbers = getNumbers();
+            var result = null;
+            if(currentNumbers){
+                switch (operator) {
+                    case 'add':
+                        result = currentNumbers.firstNumber + currentNumbers.secondNumber;
+                        break;
+                    case 'minus':
+                        result = currentNumbers.firstNumber - currentNumbers.secondNumber;
+                        break;
+                    case 'times':
+                        result = currentNumbers.firstNumber * currentNumbers.secondNumber;
+                        break;
+                    case 'divide':
+                        if(currentNumbers.secondNumber !== 0){
+                            result = currentNumbers.firstNumber / currentNumbers.secondNumber;
+                        }
+                        break;
+                }
+            }
+            document.getElementById("result").innerHTML = (Number.isNaN(result)) ? 'Invalid number input, modify and try again' : result; 
+        }
+        document.getElementById("add-btn").onclick = function() {
+            doComputation('add');
+        }
+        document.getElementById("minus-btn").onclick = function() {
+            doComputation('minus');
+        }
+        document.getElementById("times-btn").onclick = function() {
+            doComputation('times');
+        }
+        document.getElementById("divide-btn").onclick = function() {
+            doComputation('divide');
+        }
+    </script>
+</body>
+</html>
