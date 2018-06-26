@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Find the DOM</title>
+</head>
+<body onload="getTheDOM()">        
+    <div id="wrapper">
+        <div id="news-top" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li><span>HTML</span><a href="">Some Link1</a></li>
+                    <li><span>JS</span><a class="active" href="">Some Link2</a></li>
+                    <li><span>CSS</span><a href="">Some Link3</a></li>
+                    <li><span>JS</span><a href="">Some Link4</a></li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>
+        <div id="news-normal" class="section">
+            <h3>Some title</h3>
+            <div class="content">
+                <ul>
+                    <li><span>HTML</span><a href="">Some Link1</a></li>
+                    <li><span>HTML</span><a href="">Some Link2</a></li>
+                    <li><span>JS</span><a class="active" href="#">Some Link3</a></li>
+                    <li><span>CSS</span><a href="">Some Link4</a></li>
+                </ul>
+            </div>
+            <img src="">
+            <p class="">Some Text</p>
+        </div>      
+    </div>
+
+    <script>
+        function getTheDOM(){
+            getAllListItem();
+            findAllHtmlSpanInOneSection("news-top");
+            findListItem("news-normal", "JS");
+            getActiveLinkContent("news-top");
+        }
+        function getAllListItem() {
+            const list1 = document.getElementsByTagName("li");
+            const list2 = document.querySelectorAll("li");
+            console.info("BasicSelector-listItem", list1);
+            console.info("QuerySelector-listItem", list2);
+        }
+        function findAllHtmlSpanInOneSection(sectionId) {
+            const htmlSpan1 = Array.from(document.getElementById(sectionId)
+            .getElementsByTagName("span"))
+            .filter(span => span.innerHTML === "HTML");
+            const htmlSpan2 = Array.from(document.querySelectorAll("#" + sectionId + " span"))
+            .filter(span => span.innerHTML === "HTML");
+            console.info("BasicSelector-htmlSpan", htmlSpan1);
+            console.info("QuerySelector-htmlSpan", htmlSpan2);
+        }
+        function findListItem(sectionId, spanCont) {
+            const htmlLi1 = Array.from(document.getElementById(sectionId)
+            .getElementsByTagName("span"))
+            .filter(span => span.innerHTML === spanCont)
+            .map(spanItem => spanItem.parentNode);
+            const htmlLi2 = Array.from(document.querySelectorAll("#" + sectionId + " span"))
+            .filter(span => span.innerHTML === spanCont)
+            .map(spanItem => spanItem.parentNode);
+            console.info("BasicSelector-htmlList", htmlLi1);
+            console.info("QuerySelector-htmlList", htmlLi2);
+        }
+        function getActiveLinkContent(sectionId) {
+            const activeLinkText1 = Array.from(document.getElementById(sectionId)
+            .getElementsByClassName("active"))
+            .map(node => node.innerHTML);
+            const activeLinkText2 = Array.from(document.querySelectorAll("#" + sectionId + " a.active"))
+            .map(node => node.innerHTML);
+            console.info("BasicSelector-activeText", activeLinkText1);
+            console.info("QuerySelector-activeText", activeLinkText2);
+        }
+    </script>
+</body>
+</html>
